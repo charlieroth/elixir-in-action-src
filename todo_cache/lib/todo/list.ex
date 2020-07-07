@@ -29,6 +29,7 @@ defmodule Todo.List do
     case Map.fetch(todo_list.entries, entry_id) do
       :error ->
         todo_list
+      
       {:ok, old_entry} ->
         new_entry = updater_fn.(old_entry)
         new_entries = Map.put(todo_list.entries, new_entry.id, new_entry)
@@ -37,7 +38,6 @@ defmodule Todo.List do
   end
 
   def delete_entry(todo_list, entry_id) do
-    new_entries = Map.delete(todo_list, entry_id)
-    %Todo.List{todo_list | entries: new_entries}
+    %Todo.List{todo_list | entries: Map.delete(todo_list, entry_id)}
   end
 end
